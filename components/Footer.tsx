@@ -14,7 +14,7 @@ const navLinks = [
 export default function Footer() {
   return (
     <footer className="bg-[#0A1B33] text-[#F5F2EA] border-t border-[#162E52] relative overflow-hidden">
-      {/* Background watermark motif */}
+      {/* Background watermark moti f */}
       <div className="absolute right-[-80px] bottom-[-80px] w-96 h-96 opacity-5 pointer-events-none select-none">
         <Image
           src="/images/logo/arg-logo-white.png"
