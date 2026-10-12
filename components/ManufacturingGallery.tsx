@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { ZoomIn, X, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { ZoomIn, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { ManufacturingImage } from "@/lib/data";
+
+import { getManufacturingBentoClass } from "@/lib/bentoLayout";
 
 interface ManufacturingGalleryProps {
   images: ManufacturingImage[];
@@ -12,23 +14,9 @@ interface ManufacturingGalleryProps {
 export default function ManufacturingGallery({
   images,
 }: ManufacturingGalleryProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [activeLightboxIndex, setActiveLightboxIndex] = useState<number | null>(
     null
   );
-
-  const categories = [
-    { id: "all", label: "All Workshop Records" },
-    { id: "machinery", label: "Machinery & Mills" },
-    { id: "craftsmanship", label: "Artisans & Embossing" },
-    { id: "tools", label: "Dies, Lathes & Moulds" },
-    { id: "heritage", label: "Archival Heritage" },
-  ];
-
-  const filteredImages =
-    selectedCategory === "all"
-      ? images
-      : images.filter((img) => img.category === selectedCategory);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -37,96 +25,66 @@ export default function ManufacturingGallery({
         setActiveLightboxIndex(null);
       } else if (e.key === "ArrowRight") {
         setActiveLightboxIndex((prev) =>
-          prev !== null ? (prev + 1) % filteredImages.length : null
+          prev !== null ? (prev + 1) % images.length : null
         );
       } else if (e.key === "ArrowLeft") {
         setActiveLightboxIndex((prev) =>
-          prev !== null
-            ? (prev - 1 + filteredImages.length) % filteredImages.length
-            : null
+          prev !== null ? (prev - 1 + images.length) % images.length : null
         );
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeLightboxIndex, filteredImages.length]);
+  }, [activeLightboxIndex, images.length]);
 
   return (
     <div>
-      {/* Category Filter */}
-      <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-4 mb-10 gap-2 border-b border-[#DFE5EC]/60 no-scrollbar">
-        {categories.map((cat) => {
-          const isSelected = selectedCategory === cat.id;
+      {/* Editorial Mosaic Workshop Gallery - Dynamic Bento Layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-[300px] sm:auto-rows-[320px] lg:auto-rows-[340px] grid-flow-dense gap-4 sm:gap-5 lg:gap-6">
+        {images.map((item, idx) => {
+          const spanClass = getManufacturingBentoClass(idx, images.length, item.highlight);
           return (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`whitespace-nowrap px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-sm transition-all cursor-pointer ${
-                isSelected
-                  ? "bg-[#0A1B33] text-white shadow-xs"
-                  : "bg-white text-[#3F4B5A] hover:bg-[#F0F4F8] hover:text-[#0A1B33] border border-[#DFE5EC]"
-              }`}
+            <article
+              key={item.id}
+              onClick={() => setActiveLightboxIndex(idx)}
+              className={`group cursor-pointer relative w-full h-full overflow-hidden rounded-xs bg-[#101A2B] border border-[#E9D8BE]/80 hover:border-[#C49A43] transition-all duration-300 shadow-xs hover:shadow-2xl ${spanClass}`}
             >
-              {cat.label}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Editorial Photographic Gallery */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {filteredImages.map((item, idx) => (
-          <div
-            key={item.id}
-            onClick={() => setActiveLightboxIndex(idx)}
-            className="group cursor-pointer bg-white rounded-sm border border-[#DFE5EC] overflow-hidden shadow-xs hover:shadow-md hover:border-[#C8D1DC] transition-all duration-300 flex flex-col"
-          >
-            {/* Image Box */}
-            <div className="relative aspect-[4/3] w-full bg-[#061122] overflow-hidden">
+              {/* Full-bleed Workshop Photograph */}
               <Image
                 src={item.image}
-                alt={item.title}
+                alt={item.caption}
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A1B33]/60 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
+              {/* Seamless Dark Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#101A2B]/95 via-[#101A2B]/40 to-black/20 opacity-90 group-hover:opacity-95 transition-opacity" />
 
-              <div className="absolute top-3 right-3 p-2 rounded-full bg-black/40 backdrop-blur-xs text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                <ZoomIn className="w-4 h-4" />
-              </div>
-
-              {item.highlight && (
-                <div className="absolute top-3 left-3 bg-[#0A1B33]/85 text-white text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-xs border border-white/10 flex items-center gap-1.5">
-                  <Sparkles className="w-3 h-3 text-[#C8D1DC]" />
-                  <span>Workshop Record</span>
-                </div>
-              )}
-            </div>
-
-            {/* Description */}
-            <div className="p-5 flex-1 flex flex-col justify-between bg-white space-y-2">
-              <div>
-                <h3 className="font-display text-lg font-semibold text-[#0A1B33] group-hover:text-[#162E52] transition-colors leading-snug">
-                  {item.title}
-                </h3>
-                <p className="text-xs text-[#3F4B5A] leading-relaxed font-light mt-2">
-                  {item.description}
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-[#DFE5EC]/60 flex items-center justify-between text-[11px] text-[#758394]">
-                <span className="font-serif-body italic">Mukkannar Street, Kumbakonam</span>
-                <span className="text-[#0A1B33] font-medium group-hover:underline">
-                  Inspect
+              {/* Zoom Inspect Badge */}
+              <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none">
+                <span className="inline-flex p-2 rounded-full bg-[#17243B]/85 text-[#C49A43] backdrop-blur-xs shadow-md border border-[#C49A43]/30">
+                  <ZoomIn className="w-3.5 h-3.5" />
                 </span>
               </div>
-            </div>
-          </div>
-        ))}
+
+              {/* Details and Title INSIDE Image at Bottom */}
+              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 z-10 transition-all duration-300">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="w-3 h-[1.5px] bg-[#C49A43]" />
+                  <span className="text-[10px] font-semibold text-[#C49A43] uppercase tracking-widest">
+                    {item.caption}
+                  </span>
+                </div>
+                <h3 className="font-serif-heading text-lg sm:text-xl font-normal text-[#F5EADF] group-hover:text-[#C49A43] transition-colors leading-snug mb-1 drop-shadow-sm">
+                  {item.title}
+                </h3>
+              </div>
+            </article>
+          );
+        })}
       </div>
 
       {/* Lightbox for Workshop Photos */}
@@ -135,13 +93,13 @@ export default function ManufacturingGallery({
           role="dialog"
           aria-modal="true"
           aria-label="Manufacturing Photo Lightbox"
-          className="fixed inset-0 z-50 bg-[#061122]/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+          className="fixed inset-0 z-50 bg-[#101A2B]/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
           onClick={() => setActiveLightboxIndex(null)}
         >
           <button
             onClick={() => setActiveLightboxIndex(null)}
             aria-label="Close Lightbox"
-            className="absolute top-5 right-5 p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors z-20"
+            className="absolute top-5 right-5 p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors z-20 cursor-pointer"
           >
             <X className="w-7 h-7" />
           </button>
@@ -150,82 +108,48 @@ export default function ManufacturingGallery({
             onClick={(e) => {
               e.stopPropagation();
               setActiveLightboxIndex((prev) =>
-                prev !== null
-                  ? (prev - 1 + filteredImages.length) % filteredImages.length
-                  : null
+                prev !== null ? (prev - 1 + images.length) % images.length : null
               );
             }}
-            aria-label="Previous image"
-            className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 p-3 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors z-20"
+            aria-label="Previous Image"
+            className="absolute left-4 p-3 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors z-20 cursor-pointer"
           >
-            <ChevronLeft className="w-8 h-8" />
+            <ChevronLeft className="w-6 h-6" />
           </button>
 
           <button
             onClick={(e) => {
               e.stopPropagation();
               setActiveLightboxIndex((prev) =>
-                prev !== null ? (prev + 1) % filteredImages.length : null
+                prev !== null ? (prev + 1) % images.length : null
               );
             }}
-            aria-label="Next image"
-            className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 p-3 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors z-20"
+            aria-label="Next Image"
+            className="absolute right-4 p-3 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors z-20 cursor-pointer"
           >
-            <ChevronRight className="w-8 h-8" />
+            <ChevronRight className="w-6 h-6" />
           </button>
 
           <div
-            className="relative max-w-4xl w-full max-h-[90vh] bg-[#0A1B33] rounded-sm border border-[#162E52] overflow-hidden flex flex-col md:flex-row shadow-2xl"
+            className="max-w-4xl w-full bg-[#17243B] rounded-xs border border-white/10 overflow-hidden shadow-2xl flex flex-col text-[#F5EADF]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative flex-1 min-h-[300px] sm:min-h-[450px] md:min-h-[550px] bg-[#061122] flex items-center justify-center p-4">
+            <div className="relative aspect-[16/10] w-full bg-[#101A2B] flex items-center justify-center">
               <Image
-                src={filteredImages[activeLightboxIndex].image}
-                alt={filteredImages[activeLightboxIndex].title}
+                src={images[activeLightboxIndex].image}
+                alt={images[activeLightboxIndex].caption}
                 fill
-                sizes="(max-width: 1024px) 100vw, 800px"
+                sizes="1000px"
                 className="object-contain"
-                priority
               />
             </div>
-
-            <div className="w-full md:w-80 p-6 md:p-8 bg-[#0A1B33] text-white flex flex-col justify-between border-t md:border-t-0 md:border-l border-[#162E52]">
-              <div className="space-y-4">
-                <span className="text-xs font-semibold uppercase tracking-widest text-[#C8D1DC] block">
-                  Workshop Photographic Record
-                </span>
-
-                <h3 className="font-display text-2xl font-bold leading-tight">
-                  {filteredImages[activeLightboxIndex].title}
-                </h3>
-
-                <div className="w-12 h-[1px] bg-[#C8D1DC]/40" />
-
-                <p className="text-sm text-[#C8D1DC] leading-relaxed font-light">
-                  {filteredImages[activeLightboxIndex].description}
-                </p>
-
-                <div className="pt-4 border-t border-[#162E52] space-y-2 text-xs text-[#C8D1DC]/80">
-                  <p>
-                    <span className="font-semibold text-white">Location:</span>{" "}
-                    Mukkannar Street, Kumbakonam
-                  </p>
-                  <p>
-                    <span className="font-semibold text-white">Focus:</span>{" "}
-                    Traditional Silver Handicraft Production
-                  </p>
-                  <p>
-                    <span className="font-semibold text-white">Heritage:</span>{" "}
-                    Family-run since 1925
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-8 pt-4 border-t border-[#162E52]">
-                <p className="text-xs text-[#C8D1DC]/60 italic font-serif-body">
-                  Two operational units supporting temples and traditional jewellery dealers across South India.
-                </p>
-              </div>
+            <div className="p-6 bg-[#17243B] border-t border-white/10 space-y-1">
+              <p className="text-xs uppercase tracking-widest text-[#C49A43] font-semibold">
+                {images[activeLightboxIndex].caption}
+              </p>
+              <p className="text-sm text-[#C5C8CC] leading-relaxed font-light">
+                {images[activeLightboxIndex].description}
+              </p>
             </div>
           </div>
         </div>

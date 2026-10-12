@@ -28,33 +28,21 @@ export default function SectionHeading({
     >
       {kicker && (
         <div
-          className={`flex items-center gap-2 mb-3 ${
+          className={`flex items-center gap-2.5 mb-3.5 ${
             isCenter ? "justify-center" : "justify-start"
           }`}
         >
-          <span
-            className={`w-6 h-[1.5px] ${
-              isDark ? "bg-[#C8D1DC]/60" : "bg-[#0A1B33]/60"
-            }`}
-          />
-          <span
-            className={`text-xs font-semibold uppercase tracking-[0.2em] ${
-              isDark ? "text-[#C8D1DC]" : "text-[#0A1B33]"
-            }`}
-          >
+          <span className="w-5 h-[1.5px] bg-[#C49A43]" />
+          <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#C49A43]">
             {kicker}
           </span>
-          <span
-            className={`w-6 h-[1.5px] ${
-              isDark ? "bg-[#C8D1DC]/60" : "bg-[#0A1B33]/60"
-            }`}
-          />
+          {isCenter && <span className="w-5 h-[1.5px] bg-[#C49A43]" />}
         </div>
       )}
 
       <h2
-        className={`font-display tracking-tight text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight ${
-          isDark ? "text-white" : "text-[#0A1B33]"
+        className={`font-serif-heading tracking-tight text-3xl sm:text-4xl lg:text-[46px] font-normal leading-[1.15] ${
+          isDark ? "text-[#F5EADF]" : "text-[#17243B]"
         }`}
       >
         {title}
@@ -63,7 +51,7 @@ export default function SectionHeading({
       {description && (
         <p
           className={`mt-4 text-base sm:text-lg leading-relaxed font-light ${
-            isDark ? "text-[#C8D1DC]" : "text-[#3F4B5A]"
+            isDark ? "text-[#C5C8CC]" : "text-[#292824]/85"
           }`}
         >
           {description}

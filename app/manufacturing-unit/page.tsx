@@ -1,63 +1,77 @@
 import React from "react";
 import type { Metadata } from "next";
-import { MapPin, Building2, ArrowRight } from "lucide-react";
-import SectionHeading from "@/components/SectionHeading";
+import Image from "next/image";
+import { MapPin } from "lucide-react";
 import ManufacturingGallery from "@/components/ManufacturingGallery";
 import ContactStrip from "@/components/ContactStrip";
 import { MANUFACTURING_GALLERY, COMPANY_INFO } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Our Manufacturing Units | Kumbakonam Silver Workshops",
+  title: "Our Manufacturing Unit | A.R.G SILVERS Kumbakonam",
   description:
-    "A photographic record of A.R.G Silvers two manufacturing units on Mukkannar Street in Kumbakonam, Tamil Nadu. Traditional spinning lathes, sheet rolling mills, stamping presses, and three generations of silver artisanal knowledge.",
-  openGraph: {
-    title: "Our Manufacturing Units | A.R.G SILVERS Kumbakonam",
-    description:
-      "Our work continues from Kumbakonam, where our family has been making traditional silver products for generations.",
-    images: ["/images/manufacturing/workshop-overview.jpeg"],
-  },
+    "A photography-led look inside A.R.G Silvers two manufacturing units on Mukkannar Street in Kumbakonam, Tamil Nadu. Handcrafting traditional silver products across three generations.",
 };
 
 export default function ManufacturingUnitPage() {
   return (
     <>
       {/* 1. HERO SECTION */}
-      <section className="bg-[#FCFBF7] pt-12 pb-16 lg:pt-18 lg:pb-20 border-b border-[#DFE5EC]/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-[#0A1B33] block">
-              Workshop &amp; Production Heritage
-            </span>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#0A1B33] leading-tight">
-              Our Manufacturing Units
-            </h1>
-            <div className="w-16 h-[2px] bg-[#0A1B33]/80 my-3" />
-            <p className="text-lg sm:text-xl text-[#3F4B5A] leading-relaxed font-light">
-              Our work continues from Kumbakonam, where our family has been making
-              traditional silver products for generations.
-            </p>
-            <p className="text-base sm:text-lg text-[#3F4B5A] leading-relaxed font-light">
-              Today, we have two manufacturing units supporting our traditional
-              silver work.
-            </p>
+      <section className="bg-velvet-texture text-[#F5EADF] pt-16 pb-20 lg:pt-24 lg:pb-28 border-b border-[#101A2B] relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            {/* Left Content */}
+            <div className="lg:col-span-7 space-y-5">
+              <div className="inline-flex items-center gap-2.5">
+                <span className="w-5 h-[1.5px] bg-[#C49A43]" />
+                <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#C49A43]">
+                  KUMBAKONAM WORKSHOPS
+                </span>
+              </div>
+              <h1 className="font-serif-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-[#F5EADF] leading-[1.1]">
+                Our Manufacturing Unit
+              </h1>
+              <div className="w-16 h-[1.5px] bg-[#C49A43]/60 my-3" />
+              <p className="text-base sm:text-lg text-[#C5C8CC] leading-relaxed font-light max-w-2xl">
+                Our work continues in Kumbakonam, where our family has been making traditional silver products for generations.
+              </p>
+            </div>
+
+            {/* Right Wide Actual Workshop Photograph */}
+            <div className="lg:col-span-5">
+              <div className="relative bg-[#101A2B] p-3 rounded-xs border border-white/10 shadow-xl">
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#17243B] rounded-xs">
+                  <Image
+                    src="/images/manufacturing/workshop-overview.jpeg"
+                    alt="Inside A.R.G Silvers workshop in Kumbakonam"
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 480px"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#101A2B]/80 via-transparent to-transparent" />
+                  <div className="absolute bottom-3 left-4 text-xs text-[#C49A43] font-serif-heading">
+                    Unit 01 Workshop Floor · Kumbakonam
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 2. PHOTOGRAPHIC EDITORIAL GALLERY */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-[#FAF9F5] border-b border-[#DFE5EC]/80">
+      {/* 2. FULL-WIDTH IMAGE GALLERY */}
+      <section className="py-16 sm:py-20 lg:py-24 bg-[#F5EADF] border-b border-[#E9D8BE]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div>
-              <span className="text-xs uppercase tracking-widest text-[#758394] font-semibold block">
-                Photographic Record
-              </span>
-              <h2 className="font-display text-2xl sm:text-3xl font-semibold text-[#0A1B33] mt-1">
-                Inside the Kumbakonam Workshops
-              </h2>
-            </div>
-            <p className="text-xs text-[#758394] italic font-serif-body">
-              An authentic glimpse into the machines, tools, moulds, and family craftsmen.
+          <div className="mb-12 text-center max-w-2xl mx-auto space-y-2">
+            <span className="text-[11px] uppercase tracking-[0.2em] text-[#C49A43] font-semibold block">
+              PHOTOGRAPHIC RECORD
+            </span>
+            <h2 className="font-serif-heading text-3xl sm:text-4xl font-normal text-[#17243B]">
+              Inside the Workshops
+            </h2>
+            <div className="w-12 h-[1.5px] bg-[#C49A43] mx-auto my-3" />
+            <p className="text-xs text-[#292824]/70 italic font-serif-heading">
+              Authentic documentary images of tools, workbenches, and craftsmen at work.
             </p>
           </div>
 
@@ -65,77 +79,48 @@ export default function ManufacturingUnitPage() {
         </div>
       </section>
 
-      {/* 3. OUR UNITS SECTION */}
-      <section className="py-20 lg:py-28 bg-[#FCFBF7] border-b border-[#DFE5EC]/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            kicker="Facilities"
-            title="Our Units"
-            description="Two specialized manufacturing locations situated in Kumbakonam's historic craft quarters, continuing traditional silver metallurgy."
-            alignment="center"
-            className="mb-16"
-          />
+      {/* 3. MANUFACTURING UNIT DETAILS */}
+      <section className="py-16 sm:py-20 bg-white border-b border-[#E9D8BE]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 space-y-2">
+            <span className="text-[11px] uppercase tracking-[0.2em] text-[#C49A43] font-semibold block">
+              WORKSHOP LOCATIONS
+            </span>
+            <h2 className="font-serif-heading text-3xl sm:text-4xl font-normal text-[#17243B]">
+              Manufacturing Unit Details
+            </h2>
+            <div className="w-12 h-[1.5px] bg-[#C49A43] mx-auto my-3" />
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {COMPANY_INFO.units.map((unit) => (
               <div
                 key={unit.unitNumber}
-                className="bg-white rounded-sm border border-[#DFE5EC] p-8 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between"
+                className="bg-white p-8 rounded-xs border border-[#E9D8BE] shadow-xs space-y-4"
               >
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between pb-4 border-b border-[#DFE5EC]">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-[#0A1B33] text-white flex items-center justify-center font-display font-bold text-sm">
-                        {unit.unitNumber}
-                      </div>
-                      <div>
-                        <h3 className="font-display text-xl font-bold text-[#0A1B33]">
-                          {unit.name}
-                        </h3>
-                        <p className="text-xs text-[#758394]">
-                          Kumbakonam, Tamil Nadu
-                        </p>
-                      </div>
-                    </div>
-                    <Building2 className="w-5 h-5 text-[#758394]" />
+                <div className="flex items-center gap-3 pb-4 border-b border-[#E9D8BE]">
+                  <div className="w-10 h-10 rounded-full bg-[#17243B] text-[#C49A43] flex items-center justify-center font-serif-heading text-base font-bold">
+                    {unit.unitNumber}
                   </div>
-
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <MapPin className="w-5 h-5 text-[#0A1B33] shrink-0 mt-0.5" />
-                      <div className="text-sm text-[#3F4B5A] leading-relaxed">
-                        <p className="font-medium text-[#151C26]">{unit.street}</p>
-                        <p>{unit.city}</p>
-                        <p className="text-xs text-[#758394]">{unit.district}, {unit.state}</p>
-                      </div>
-                    </div>
-
-                    <div className="p-4 bg-[#F5F2EA] rounded-xs border border-[#EDE7DC] space-y-1">
-                      <span className="text-[11px] font-semibold text-[#0A1B33] uppercase tracking-wider block">
-                        Core Capabilities
-                      </span>
-                      <p className="text-xs text-[#3F4B5A] leading-relaxed">
-                        {unit.unitNumber === "01"
-                          ? "Heavy sheet rolling mills, traditional metal spinning lathes, master dies, and deity kavasam embossing."
-                          : "Hydraulic stamping, devotional vessel finishing, precision weighing, and temple custom orders."}
-                      </p>
-                    </div>
+                  <div>
+                    <h3 className="font-serif-heading text-2xl font-normal text-[#17243B]">
+                      {unit.name}
+                    </h3>
+                    <p className="text-xs text-[#292824]/60">
+                      Kumbakonam, Tamil Nadu
+                    </p>
                   </div>
                 </div>
 
-                <div className="mt-8 pt-4 border-t border-[#DFE5EC] flex items-center justify-between text-xs">
-                  <span className="text-[#758394] font-serif-body italic">
-                    Registered Workshop
-                  </span>
-                  <a
-                    href={`https://maps.google.com/?q=${encodeURIComponent(unit.mapsQuery)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#0A1B33] font-semibold hover:underline inline-flex items-center gap-1"
-                  >
-                    <span>View Location</span>
-                    <ArrowRight className="w-3 h-3" />
-                  </a>
+                <div className="space-y-2 text-sm text-[#292824]/85 leading-relaxed pt-2">
+                  <div className="flex items-start gap-2.5">
+                    <MapPin className="w-4 h-4 text-[#C49A43] shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-medium text-[#17243B]">{unit.street}</p>
+                      <p>{unit.city}</p>
+                      <p className="text-xs text-[#292824]/70">{unit.district}, {unit.state}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -143,12 +128,11 @@ export default function ManufacturingUnitPage() {
         </div>
       </section>
 
-      {/* 4. BOTTOM STRIP (Exact requested content) */}
+      {/* 4. BOTTOM CONTACT STRIP */}
       <ContactStrip
-        heading="Have a requirement for traditional silver work?"
-        subheading="Discuss your temple requirements, jewellery retail orders, or customized silver articles directly with our Kumbakonam craftsmen."
-        ctaText="Contact Us"
-        theme="blue"
+        heading="For Traditional Silver Work and Product Requirements"
+        buttonText="CONTACT US"
+        theme="beige"
       />
     </>
   );

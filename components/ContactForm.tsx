@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Send, CheckCircle2 } from "lucide-react";
+import { Send, Phone, Mail, CheckCircle2 } from "lucide-react";
+import { COMPANY_INFO } from "@/lib/data";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
-    phone: "",
-    email: "",
+    contactInfo: "",
+    subject: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
@@ -17,32 +18,48 @@ export default function ContactForm() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate clean submission
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
-    }, 600);
+    }, 500);
   };
 
   if (submitted) {
     return (
-      <div className="bg-[#F5F2EA] p-8 sm:p-10 rounded-sm border border-[#EDE7DC] text-center space-y-4">
-        <div className="w-12 h-12 bg-[#0A1B33] text-white rounded-full flex items-center justify-center mx-auto">
+      <div className="bg-white p-8 sm:p-10 rounded-xs border border-[#E9D8BE] shadow-md space-y-5 text-center">
+        <div className="w-12 h-12 bg-[#17243B] text-[#C49A43] rounded-full flex items-center justify-center mx-auto border border-[#C49A43]/40">
           <CheckCircle2 className="w-6 h-6" />
         </div>
-        <h3 className="font-display text-2xl font-bold text-[#0A1B33]">
+        <h3 className="font-serif-heading text-2xl font-normal text-[#17243B]">
           Thank You, {formData.name}
         </h3>
-        <p className="text-sm text-[#3F4B5A] leading-relaxed max-w-md mx-auto">
-          We have received your message. Our craftsmen will reach out to you directly at{" "}
-          <strong className="text-[#0A1B33]">{formData.phone || formData.email}</strong> shortly.
+        <p className="text-sm text-[#292824]/85 leading-relaxed font-light max-w-md mx-auto">
+          We have recorded your details regarding <strong className="text-[#17243B]">{formData.subject || "your requirement"}</strong>. For immediate assistance, our family is directly available via phone and email:
         </p>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+          <a
+            href={COMPANY_INFO.phones[0].href}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#17243B] text-[#F5EADF] text-xs font-semibold tracking-wider uppercase rounded-xs"
+          >
+            <Phone className="w-3.5 h-3.5 text-[#C49A43]" />
+            <span>Call {COMPANY_INFO.phones[0].label}</span>
+          </a>
+          <a
+            href={COMPANY_INFO.email.href}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-[#17243B] text-[#17243B] text-xs font-semibold tracking-wider uppercase rounded-xs hover:bg-[#F5EADF]"
+          >
+            <Mail className="w-3.5 h-3.5 text-[#C49A43]" />
+            <span>Email Us Directly</span>
+          </a>
+        </div>
+
         <button
           onClick={() => {
             setSubmitted(false);
-            setFormData({ name: "", phone: "", email: "", message: "" });
+            setFormData({ name: "", contactInfo: "", subject: "", message: "" });
           }}
-          className="mt-4 text-xs font-semibold uppercase tracking-wider text-[#0A1B33] hover:underline cursor-pointer"
+          className="mt-4 text-xs font-semibold uppercase tracking-wider text-[#17243B] hover:text-[#C49A43] underline cursor-pointer"
         >
           Send Another Message
         </button>
@@ -53,21 +70,29 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-6 sm:p-8 rounded-sm border border-[#DFE5EC] shadow-xs space-y-5"
+      className="bg-white p-6 sm:p-8 rounded-xs border border-[#E9D8BE] shadow-xs space-y-4"
     >
       <div className="space-y-1">
-        <h3 className="font-display text-xl font-bold text-[#0A1B33]">
-          Send Direct Message
+        <h3 className="font-serif-heading text-2xl font-normal text-[#17243B]">
+          Send a Message
         </h3>
-        <p className="text-xs text-[#758394]">
-          Fill in your details and requirement below.
+        <p className="text-xs text-[#292824]/70">
+          Direct enquiries about traditional silver articles or temple requirements.
         </p>
+      </div>
+
+      {/* Notice regarding primary direct channels */}
+      <div className="p-3 bg-[#F5EADF]/60 rounded-xs border border-[#E9D8BE] text-[11px] text-[#292824]/80 leading-relaxed font-light">
+        <strong className="font-semibold text-[#17243B]">Direct Assistance:</strong> For urgent temple commissions or order discussions, you can reach us immediately by phone at{" "}
+        <a href={COMPANY_INFO.phones[0].href} className="underline text-[#17243B] font-medium">
+          {COMPANY_INFO.phones[0].label}
+        </a>.
       </div>
 
       <div>
         <label
           htmlFor="name"
-          className="block text-xs font-semibold uppercase tracking-wider text-[#151C26] mb-1.5"
+          className="block text-xs font-semibold uppercase tracking-wider text-[#17243B] mb-1"
         >
           Name <span className="text-red-600">*</span>
         </label>
@@ -78,51 +103,51 @@ export default function ContactForm() {
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           placeholder="Your full name"
-          className="w-full px-3.5 py-2.5 bg-[#FCFBF7] border border-[#DFE5EC] rounded-xs text-sm text-[#151C26] focus:outline-none focus:ring-1 focus:ring-[#0A1B33] focus:border-[#0A1B33] transition-colors"
+          className="w-full px-3.5 py-2.5 bg-[#F5EADF]/30 border border-[#E9D8BE] rounded-xs text-sm text-[#292824] focus:outline-none focus:ring-1 focus:ring-[#C49A43] focus:border-[#C49A43] transition-colors"
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label
-            htmlFor="phone"
-            className="block text-xs font-semibold uppercase tracking-wider text-[#151C26] mb-1.5"
-          >
-            Phone <span className="text-red-600">*</span>
-          </label>
-          <input
-            id="phone"
-            type="tel"
-            required
-            value={formData.phone}
-            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-            placeholder="+91 Phone number"
-            className="w-full px-3.5 py-2.5 bg-[#FCFBF7] border border-[#DFE5EC] rounded-xs text-sm text-[#151C26] focus:outline-none focus:ring-1 focus:ring-[#0A1B33] focus:border-[#0A1B33] transition-colors"
-          />
-        </div>
+      <div>
+        <label
+          htmlFor="contactInfo"
+          className="block text-xs font-semibold uppercase tracking-wider text-[#17243B] mb-1"
+        >
+          Phone or Email <span className="text-red-600">*</span>
+        </label>
+        <input
+          id="contactInfo"
+          type="text"
+          required
+          value={formData.contactInfo}
+          onChange={(e) =>
+            setFormData({ ...formData, contactInfo: e.target.value })
+          }
+          placeholder="+91 Phone number or email address"
+          className="w-full px-3.5 py-2.5 bg-[#F5EADF]/30 border border-[#E9D8BE] rounded-xs text-sm text-[#292824] focus:outline-none focus:ring-1 focus:ring-[#C49A43] focus:border-[#C49A43] transition-colors"
+        />
+      </div>
 
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-xs font-semibold uppercase tracking-wider text-[#151C26] mb-1.5"
-          >
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            placeholder="your@email.com"
-            className="w-full px-3.5 py-2.5 bg-[#FCFBF7] border border-[#DFE5EC] rounded-xs text-sm text-[#151C26] focus:outline-none focus:ring-1 focus:ring-[#0A1B33] focus:border-[#0A1B33] transition-colors"
-          />
-        </div>
+      <div>
+        <label
+          htmlFor="subject"
+          className="block text-xs font-semibold uppercase tracking-wider text-[#17243B] mb-1"
+        >
+          Subject
+        </label>
+        <input
+          id="subject"
+          type="text"
+          value={formData.subject}
+          onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+          placeholder="e.g. Temple Kavasam, Varalakshmi Amman, Traditional Silver Articles"
+          className="w-full px-3.5 py-2.5 bg-[#F5EADF]/30 border border-[#E9D8BE] rounded-xs text-sm text-[#292824] focus:outline-none focus:ring-1 focus:ring-[#C49A43] focus:border-[#C49A43] transition-colors"
+        />
       </div>
 
       <div>
         <label
           htmlFor="message"
-          className="block text-xs font-semibold uppercase tracking-wider text-[#151C26] mb-1.5"
+          className="block text-xs font-semibold uppercase tracking-wider text-[#17243B] mb-1"
         >
           Message <span className="text-red-600">*</span>
         </label>
@@ -132,18 +157,18 @@ export default function ContactForm() {
           required
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          placeholder="Tell us about the traditional silver articles or temple requirements..."
-          className="w-full px-3.5 py-2.5 bg-[#FCFBF7] border border-[#DFE5EC] rounded-xs text-sm text-[#151C26] focus:outline-none focus:ring-1 focus:ring-[#0A1B33] focus:border-[#0A1B33] transition-colors resize-none"
+          placeholder="Please share details of your silver article or temple requirement..."
+          className="w-full px-3.5 py-2.5 bg-[#F5EADF]/30 border border-[#E9D8BE] rounded-xs text-sm text-[#292824] focus:outline-none focus:ring-1 focus:ring-[#C49A43] focus:border-[#C49A43] transition-colors resize-none"
         />
       </div>
 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-3.5 px-6 bg-[#0A1B33] hover:bg-[#162E52] text-white text-xs font-semibold uppercase tracking-widest rounded-xs shadow-xs transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
+        className="w-full py-3.5 px-6 bg-[#17243B] hover:bg-[#101A2B] text-[#F5EADF] text-xs font-semibold uppercase tracking-[0.18em] rounded-xs shadow-xs transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
       >
-        <span>{isSubmitting ? "Submitting..." : "Submit Enquiry"}</span>
-        <Send className="w-3.5 h-3.5" />
+        <span>{isSubmitting ? "SENDING..." : "SEND MESSAGE"}</span>
+        <Send className="w-3.5 h-3.5 text-[#C49A43]" />
       </button>
     </form>
   );

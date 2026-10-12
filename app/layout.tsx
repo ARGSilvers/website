@@ -1,15 +1,8 @@
 import type { Metadata } from "next";
-import { Cinzel, Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
-
-const cinzel = Cinzel({
-  variable: "--font-cinzel",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-});
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -18,8 +11,8 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
@@ -28,20 +21,18 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://argsilvers.com"),
   title: {
-    default: "A.R.G SILVERS | Traditional Silver Handicrafts Since 1925 | Kumbakonam",
+    default: "A.R.G SILVERS | Traditional Silver Craftsmanship Since 1925 | Kumbakonam",
     template: "%s | A.R.G SILVERS Kumbakonam",
   },
   description:
-    "A.R.G Silvers is a family-run traditional silver manufacturing business from Kumbakonam, Tamil Nadu, with craftsmanship dating back to 1925. Three generations making sacred temple articles, Varalakshmi Amman, traditional lamps, and custom silver articles.",
+    "A.R.G Silvers is a family-run traditional silver manufacturing business in Kumbakonam, Tamil Nadu, with craftsmanship dating back to 1925. Three generations making sacred temple articles, Varalakshmi Amman, traditional lamps, and custom silver articles.",
   keywords: [
     "A.R.G Silvers",
-    "silver manufacturers in Kumbakonam",
+    "silver manufacturers Kumbakonam",
     "traditional silver products Kumbakonam",
     "silver handicrafts Kumbakonam",
     "traditional silver manufacturers Tamil Nadu",
     "silver temple articles",
-    "silver devotional products",
-    "silver lamps",
     "Varalakshmi Amman silver",
     "Kuthu Villakku silver",
     "silver kavasam",
@@ -68,7 +59,7 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: "https://argsilvers.com",
     siteName: "A.R.G SILVERS Kumbakonam",
-    title: "A.R.G SILVERS | Traditional Silver Handicrafts Since 1925 | Kumbakonam",
+    title: "A.R.G SILVERS | Traditional Silver Craftsmanship Since 1925 | Kumbakonam",
     description:
       "Family-run traditional silver manufacturing business from Kumbakonam, Tamil Nadu. Handcrafting temple articles, Varalakshmi Amman, and traditional silver articles across three generations.",
     images: [
@@ -82,7 +73,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "A.R.G SILVERS | Traditional Silver Handicrafts Since 1925",
+    title: "A.R.G SILVERS | Traditional Silver Craftsmanship Since 1925",
     description:
       "Handcrafted silver traditions from Kumbakonam, Tamil Nadu. 100+ years and three generations of craftsmanship.",
     images: ["/images/products/amman-mugam-silver.png"],
@@ -121,7 +112,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cinzel.variable} ${cormorant.variable} ${jakarta.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${inter.variable} h-full antialiased`}
     >
       <head>
         <script
@@ -129,7 +120,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-[#FCFBF7] text-[#151C26]">
+      <body className="min-h-full flex flex-col bg-[#F5EADF] text-[#292824]">
         <Header />
         <main id="main-content" className="flex-1">
           {children}

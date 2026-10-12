@@ -4,9 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, Phone } from "lucide-react";
+import { Menu } from "lucide-react";
 import MobileMenu from "./MobileMenu";
-import { COMPANY_INFO } from "@/lib/data";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -19,39 +18,45 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 25);
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // On home: fixed over hero, transparent at top with dark gradient, solid dark velvet blue on scroll
+  // On other pages: sticky top-0, solid dark velvet blue (#17243B)
+  const headerClasses = isHome
+    ? `fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
+        isScrolled
+          ? "bg-[#17243B] shadow-lg border-b border-[#101A2B]"
+          : "bg-gradient-to-b from-[#101A2B]/85 via-[#17243B]/50 to-transparent border-b border-white/10"
+      }`
+    : "sticky top-0 z-50 w-full bg-[#17243B] border-b border-[#101A2B] shadow-sm";
+
   return (
     <>
-      <header
-        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
-          isScrolled
-            ? "bg-[#FCFBF7]/95 backdrop-blur-md shadow-sm border-b border-[#DFE5EC]/80 py-3.5"
-            : "bg-[#FCFBF7] border-b border-[#DFE5EC]/50 py-4 lg:py-5"
-        }`}
-      >
+      <header className={headerClasses}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            {/* Brand Logo */}
+          <div className="flex items-center justify-between h-20 sm:h-22">
+            {/* A.R.G SILVERS Logo / Wordmark */}
             <Link
               href="/"
-              className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-[#0A1B33]/20 rounded-md"
+              className="flex items-center gap-3 group focus:outline-none rounded-sm"
               aria-label="A.R.G SILVERS - Home"
             >
-              <div className="relative h-10 sm:h-11 md:h-12 w-auto flex items-center">
+              <div className="relative h-11 sm:h-12 w-auto flex items-center">
                 <Image
-                  src="/images/logo/arg-logo-horizontal.png"
-                  alt="A.R.G SILVERS - Traditional Silver Handicrafts Since 1925"
+                  src="/images/logo/arg-logo-horizontal-white.png"
+                  alt="A.R.G SILVERS - Traditional Silver Craftsmanship Since 1925"
                   width={240}
-                  height={48}
-                  className="h-9 sm:h-10 md:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.01]"
+                  height={46}
+                  className="h-9 sm:h-10 w-auto object-contain transition-opacity duration-200 group-hover:opacity-90 drop-shadow-sm"
                   priority
                 />
               </div>
@@ -60,7 +65,7 @@ export default function Header() {
             {/* Desktop Navigation */}
             <nav
               aria-label="Primary Navigation"
-              className="hidden lg:flex items-center gap-1 xl:gap-2"
+              className="hidden md:flex items-center gap-1 lg:gap-3"
             >
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
@@ -68,47 +73,29 @@ export default function Header() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`relative px-4 py-2 text-sm font-medium tracking-wide transition-colors duration-200 rounded-sm focus:outline-none focus:ring-2 focus:ring-[#0A1B33]/20 ${
+                    className={`relative px-4 py-2 text-sm font-medium tracking-wide transition-colors duration-200 rounded-xs  ${
                       isActive
-                        ? "text-[#0A1B33] font-semibold"
-                        : "text-[#3F4B5A] hover:text-[#0A1B33]"
+                        ? "text-[#C49A43] font-semibold"
+                        : "text-[#F5EADF] hover:text-[#C49A43] drop-shadow-sm"
                     }`}
                   >
                     <span>{link.name}</span>
                     {isActive && (
-                      <span className="absolute bottom-0 left-4 right-4 h-[2px] bg-[#0A1B33] rounded-full" />
+                      <span className="absolute bottom-0 left-4 right-4 h-[2px] bg-[#C49A43] rounded-full" />
                     )}
                   </Link>
                 );
               })}
             </nav>
 
-            {/* Header Right Action (Desktop) */}
-            <div className="hidden lg:flex items-center gap-4">
-              <a
-                href={COMPANY_INFO.phones[0].href}
-                className="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-[#0A1B33] font-medium border border-[#DFE5EC] bg-white hover:bg-[#F0F4F8] hover:border-[#C8D1DC] px-3.5 py-2 rounded-sm transition-all shadow-xs"
-              >
-                <Phone className="w-3.5 h-3.5 text-[#0A1B33]" />
-                <span>{COMPANY_INFO.phones[0].label}</span>
-              </a>
-            </div>
-
-            {/* Mobile Actions: Phone & Hamburger Button */}
-            <div className="flex items-center gap-2 lg:hidden">
-              <a
-                href={COMPANY_INFO.phones[0].href}
-                aria-label="Call A.R.G SILVERS"
-                className="p-2 text-[#0A1B33] hover:bg-[#F0F4F8] rounded-md transition-colors"
-              >
-                <Phone className="w-5 h-5" />
-              </a>
+            {/* Mobile Hamburger Button */}
+            <div className="flex items-center md:hidden">
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(true)}
                 aria-label="Open navigation menu"
                 aria-expanded={isMobileMenuOpen}
-                className="p-2 text-[#0A1B33] hover:bg-[#F0F4F8] rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#0A1B33]/20"
+                className="p-2 text-[#F5EADF] hover:text-[#C49A43] hover:bg-white/10 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#C49A43]/50"
               >
                 <Menu className="w-6 h-6" />
               </button>
@@ -117,10 +104,12 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Navigation Drawer */}
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
+        navLinks={navLinks}
+        currentPath={pathname}
       />
     </>
   );

@@ -2,29 +2,40 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { X, ZoomIn, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 import { ProductItem, PRODUCT_CATEGORIES } from "@/lib/data";
+
+import { getProductBentoClass } from "@/lib/bentoLayout";
 
 interface ImageGalleryProps {
   products: ProductItem[];
   initialCategory?: string;
+  showFilters?: boolean;
+  limit?: number;
+  minimal?: boolean;
 }
 
 export default function ImageGallery({
   products,
   initialCategory = "all",
+  showFilters = true,
+  limit,
+  minimal = true,
 }: ImageGalleryProps) {
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [activeLightboxIndex, setActiveLightboxIndex] = useState<number | null>(
     null
   );
 
-  const filteredProducts =
+  const categoryProducts =
     selectedCategory === "all"
       ? products
       : products.filter((p) => p.category === selectedCategory);
 
-  // Keyboard navigation for Lightbox
+  const filteredProducts = limit
+    ? categoryProducts.slice(0, limit)
+    : categoryProducts;
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (activeLightboxIndex === null) return;
@@ -51,98 +62,93 @@ export default function ImageGallery({
   return (
     <div>
       {/* Category Filter Tabs */}
-      <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-4 mb-10 gap-2 border-b border-[#DFE5EC]/60 no-scrollbar">
-        {PRODUCT_CATEGORIES.map((category) => {
-          const isSelected = selectedCategory === category.id;
+      {showFilters && (
+        <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-4 mb-10 gap-2 border-b border-[#E9D8BE] no-scrollbar">
+          {PRODUCT_CATEGORIES.map((category) => {
+            const isSelected = selectedCategory === category.id;
+            return (
+              <button
+                key={category.id}
+                onClick={() => setSelectedCategory(category.id)}
+                className={`whitespace-nowrap px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-xs transition-all cursor-pointer ${
+                  isSelected
+                    ? "bg-[#17243B] text-[#C49A43] shadow-sm border border-[#C49A43]/40"
+                    : "bg-transparent text-[#292824] hover:text-[#17243B] border border-[#E9D8BE]"
+                }`}
+              >
+                {category.label}
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Adaptive Bento Mosaic Grid - Sizes based on actual image aspect ratio for optimal viewing */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-[300px] sm:auto-rows-[320px] lg:auto-rows-[340px] grid-flow-dense gap-4 sm:gap-5 lg:gap-6">
+        {filteredProducts.map((product, idx) => {
+          const spanClass = getProductBentoClass(
+            product.aspectRatio,
+            idx,
+            filteredProducts.length
+          );
           return (
-            <button
-              key={category.id}
-              onClick={() => setSelectedCategory(category.id)}
-              className={`whitespace-nowrap px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-sm transition-all cursor-pointer ${
-                isSelected
-                  ? "bg-[#0A1B33] text-white shadow-xs"
-                  : "bg-white text-[#3F4B5A] hover:bg-[#F0F4F8] hover:text-[#0A1B33] border border-[#DFE5EC]"
-              }`}
+            <article
+              key={product.id}
+              onClick={() => setActiveLightboxIndex(idx)}
+              className={`group cursor-pointer relative w-full h-full overflow-hidden rounded-xs bg-white border border-[#E9D8BE] hover:border-[#C49A43] transition-all duration-300 shadow-xs hover:shadow-2xl flex items-center justify-center ${spanClass}`}
             >
-              {category.label}
-            </button>
+              {/* Silver Product Image - Generous viewing stage */}
+              <div className="relative w-full h-full p-3 sm:p-4 pb-14 flex items-center justify-center">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-contain bg-[#060b16] p-1 pb-2 transition-transform duration-500 group-hover:scale-106 drop-shadow-md"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Quick Zoom Inspect Badge */}
+              <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none">
+                <span className="inline-flex p-2 rounded-full bg-[#17243B]/85 text-[#C49A43] backdrop-blur-xs shadow-md border border-[#C49A43]/30">
+                  <ZoomIn className="w-3.5 h-3.5" />
+                </span>
+              </div>
+
+              {/* Product Name & Category INSIDE Image - Bottom Gradient Banner */}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#101A2B]/95 via-[#101A2B]/70 to-transparent pt-10 pb-3 px-3 sm:px-4 text-center z-10 transition-all duration-300">
+                <span className="text-[10px] font-semibold text-[#C49A43] uppercase tracking-wider block opacity-95">
+                  {product.categoryLabel}
+                </span>
+                <h3 className="font-serif-heading text-sm sm:text-base font-normal text-[#F5EADF] group-hover:text-[#C49A43] transition-colors leading-snug drop-shadow-sm mt-0.5">
+                  {product.name}
+                </h3>
+              </div>
+            </article>
           );
         })}
       </div>
 
-      {/* Editorial Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
-        {filteredProducts.map((product, idx) => (
-          <article
-            key={product.id}
-            onClick={() => setActiveLightboxIndex(idx)}
-            className="group cursor-pointer bg-white rounded-sm border border-[#DFE5EC] overflow-hidden shadow-xs hover:shadow-md hover:border-[#C8D1DC] transition-all duration-300 flex flex-col"
-          >
-            {/* Visual Container */}
-            <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#071526] p-4 flex items-center justify-center">
-              <Image
-                src={product.image}
-                alt={product.name}
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-              />
-
-              {/* Subtle overlay hint */}
-              <div className="absolute inset-0 bg-[#0A1B33]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <span className="p-2.5 rounded-full bg-white/90 text-[#0A1B33] shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                  <ZoomIn className="w-4 h-4" />
-                </span>
-              </div>
-
-              {/* Category pill */}
-              <div className="absolute top-3 left-3 bg-[#061122]/80 backdrop-blur-xs px-2.5 py-1 rounded-xs border border-white/10 text-[10px] tracking-widest uppercase text-white/90">
-                {product.categoryLabel}
-              </div>
-            </div>
-
-            {/* Editorial Caption - NOT e-commerce */}
-            <div className="p-5 flex-1 flex flex-col justify-between bg-white border-t border-[#DFE5EC]/60">
-              <div className="space-y-1.5">
-                <h3 className="font-display text-base font-semibold text-[#0A1B33] group-hover:text-[#162E52] transition-colors leading-snug">
-                  {product.name}
-                </h3>
-                <p className="text-xs text-[#3F4B5A] leading-relaxed font-light line-clamp-3">
-                  {product.description}
-                </p>
-              </div>
-
-              <div className="mt-4 pt-3 border-t border-[#DFE5EC]/40 flex items-center justify-between text-[11px] text-[#758394]">
-                <span className="font-serif-body italic">Handmade Silver Article</span>
-                <span className="text-[#0A1B33] group-hover:underline font-medium">
-                  View Detail
-                </span>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal with Full-Screen View and Controls */}
       {activeLightboxIndex !== null && (
         <div
           role="dialog"
           aria-modal="true"
           aria-label="Product Image Lightbox"
-          className="fixed inset-0 z-50 bg-[#061122]/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+          className="fixed inset-0 z-50 bg-[#101A2B]/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
           onClick={() => setActiveLightboxIndex(null)}
         >
           {/* Close button */}
           <button
             onClick={() => setActiveLightboxIndex(null)}
             aria-label="Close Lightbox"
-            className="absolute top-5 right-5 p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors z-20"
+            className="absolute top-5 right-5 p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors z-20 cursor-pointer"
           >
             <X className="w-7 h-7" />
           </button>
 
-          {/* Previous / Next buttons */}
+          {/* Left Arrow */}
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -152,12 +158,13 @@ export default function ImageGallery({
                   : null
               );
             }}
-            aria-label="Previous image"
-            className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 p-3 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors z-20"
+            aria-label="Previous Image"
+            className="absolute left-4 p-3 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors z-20 cursor-pointer"
           >
-            <ChevronLeft className="w-8 h-8" />
+            <ChevronLeft className="w-6 h-6" />
           </button>
 
+          {/* Right Arrow */}
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -165,66 +172,36 @@ export default function ImageGallery({
                 prev !== null ? (prev + 1) % filteredProducts.length : null
               );
             }}
-            aria-label="Next image"
-            className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 p-3 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors z-20"
+            aria-label="Next Image"
+            className="absolute right-4 p-3 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-colors z-20 cursor-pointer"
           >
-            <ChevronRight className="w-8 h-8" />
+            <ChevronRight className="w-6 h-6" />
           </button>
 
-          {/* Lightbox Dialog Content */}
+          {/* Central Modal Content */}
           <div
-            className="relative max-w-4xl w-full max-h-[90vh] bg-[#0A1B33] rounded-sm border border-[#162E52] overflow-hidden flex flex-col md:flex-row shadow-2xl"
+            className="max-w-3xl w-full bg-[#17243B] rounded-xs border border-white/10 overflow-hidden shadow-2xl flex flex-col text-[#F5EADF]"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Image section */}
-            <div className="relative flex-1 min-h-[300px] sm:min-h-[450px] md:min-h-[550px] bg-[#061122] flex items-center justify-center p-6">
+            <div className="relative aspect-[4/3] w-full bg-[#101A2B] p-6 flex items-center justify-center">
               <Image
                 src={filteredProducts[activeLightboxIndex].image}
                 alt={filteredProducts[activeLightboxIndex].name}
                 fill
-                sizes="(max-width: 1024px) 100vw, 800px"
+                sizes="800px"
                 className="object-contain p-4"
-                priority
               />
             </div>
-
-            {/* Sidebar information */}
-            <div className="w-full md:w-80 p-6 md:p-8 bg-[#0A1B33] text-white flex flex-col justify-between border-t md:border-t-0 md:border-l border-[#162E52]">
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#C8D1DC]">
-                  <Sparkles className="w-3.5 h-3.5 text-[#C8D1DC]" />
-                  <span>{filteredProducts[activeLightboxIndex].categoryLabel}</span>
-                </div>
-
-                <h3 className="font-display text-2xl font-bold leading-tight">
-                  {filteredProducts[activeLightboxIndex].name}
-                </h3>
-
-                <div className="w-12 h-[1px] bg-[#C8D1DC]/40" />
-
-                <p className="text-sm text-[#C8D1DC] leading-relaxed font-light">
-                  {filteredProducts[activeLightboxIndex].description}
-                </p>
-
-                <div className="pt-4 border-t border-[#162E52] space-y-2 text-xs text-[#C8D1DC]/80">
-                  <p>
-                    <span className="font-semibold text-white">Origin:</span> Kumbakonam, Tamil Nadu
-                  </p>
-                  <p>
-                    <span className="font-semibold text-white">Craft:</span> Handcrafted Traditional Silver
-                  </p>
-                  <p>
-                    <span className="font-semibold text-white">Tradition:</span> Since 1925
-                  </p>
-                </div>
-              </div>
-
-              {/* Enquiry reminder note */}
-              <div className="mt-8 pt-4 border-t border-[#162E52]">
-                <p className="text-xs text-[#C8D1DC]/60 italic font-serif-body">
-                  For temple commissions or custom specifications, please contact our workshop directly.
-                </p>
-              </div>
+            <div className="p-6 bg-[#17243B] border-t border-white/10 space-y-2">
+              <span className="text-[11px] font-semibold text-[#C49A43] uppercase tracking-wider block">
+                {filteredProducts[activeLightboxIndex].categoryLabel}
+              </span>
+              <h3 className="font-serif-heading text-2xl font-normal text-[#F5EADF]">
+                {filteredProducts[activeLightboxIndex].name}
+              </h3>
+              <p className="text-sm text-[#C5C8CC] leading-relaxed font-light">
+                {filteredProducts[activeLightboxIndex].description}
+              </p>
             </div>
           </div>
         </div>
