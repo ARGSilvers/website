@@ -47,8 +47,8 @@ export const COMPANY_INFO = {
     { label: "+91 9087603033", href: "tel:+919087603033" }
   ],
   email: {
-    label: "gajendrangnanasekaran@gmail.com",
-    href: "mailto:gajendrangnanasekaran@gmail.com"
+    label: "argsilvers@gmail.com",
+    href: "mailto:argsilvers@gmail.com"
   },
   units: [
     {
@@ -72,10 +72,30 @@ export const COMPANY_INFO = {
   ],
   statesServed: ["Tamil Nadu", "Karnataka", "Andhra Pradesh", "Kerala"],
   esteemedClients: [
-    "GRT Jewellery, Chennai",
-    "Lalitha Jewellery, Chennai",
-    "Saravana Jewellery, Chennai",
-    "Gopal Das Diamond Merchants and Jewellery, Kumbakonam"
+    {
+      name: "GRT Jewellers",
+      location: "Chennai",
+      logo: "/images/logo/grt-jewellers.png",
+      alt: "GRT Jewellers Logo"
+    },
+    {
+      name: "Lalitha Jewellery",
+      location: "Chennai",
+      logo: "/images/logo/lalithaa-jewellery.svg",
+      alt: "Lalitha Jewellery Logo"
+    },
+    {
+      name: "Saravana Jewellery",
+      location: "Chennai",
+      logo: "/images/logo/saravana-jewellery.png",
+      alt: "Saravana Stores Elite Jewellery Logo"
+    },
+    {
+      name: "Gopal Das Diamond Merchants and Jewellery",
+      location: "Kumbakonam",
+      logo: "/images/logo/gopaldas-jewellers.webp",
+      alt: "Gopal Das Diamond Merchants and Jewellery Logo"
+    }
   ]
 };
 
@@ -395,6 +415,15 @@ export const MANUFACTURING_GALLERY: ManufacturingImage[] = [
     description: "A wide look inside our Kumbakonam manufacturing unit with traditional machinery and workbenches.",
     highlight: true
   },
+   {
+    id: "lathe-spinning-tools",
+    title: "Traditional Silver Work",
+    caption: "Traditional Silver Work",
+    category: "tools",
+    image: "/images/manufacturing/lathe-spinning-tools.jpeg",
+    description: "Metal spinning lathe, wooden moulds and tooling mandrels used for vessel shaping.",
+    highlight: true
+  },
   {
     id: "sheet-rolling-machine",
     title: "Tools of the Trade",
@@ -405,22 +434,12 @@ export const MANUFACTURING_GALLERY: ManufacturingImage[] = [
     highlight: true
   },
   {
-    id: "amman-die-scale",
-    title: "Finishing Details",
-    caption: "Finishing Details",
+    id: "artisan-machine-work",
+    title: "Made in Kumbakonam",
+    caption: "Made in Kumbakonam",
     category: "craftsmanship",
-    image: "/images/manufacturing/amman-die-scale.jpg",
-    description: "Precision weighing and inspection of the handcrafted Varalakshmi Amman face.",
-    highlight: true
-  },
-  {
-    id: "lathe-spinning-tools",
-    title: "Traditional Silver Work",
-    caption: "Traditional Silver Work",
-    category: "tools",
-    image: "/images/manufacturing/lathe-spinning-tools.jpeg",
-    description: "Metal spinning lathe, wooden moulds and tooling mandrels used for vessel shaping.",
-    highlight: true
+    image: "/images/manufacturing/artisan-machine-work.jpeg",
+    description: "Master artisan adjusting the roller clearance wheel by hand for uniform silver tensile strength."
   },
   {
     id: "heritage-craftsmen",
@@ -431,14 +450,7 @@ export const MANUFACTURING_GALLERY: ManufacturingImage[] = [
     description: "Family elders at the sheet rolling mill in Kumbakonam, continuing skills passed down since 1925.",
     highlight: true
   },
-  {
-    id: "artisan-machine-work",
-    title: "Made in Kumbakonam",
-    caption: "Made in Kumbakonam",
-    category: "craftsmanship",
-    image: "/images/manufacturing/artisan-machine-work.jpeg",
-    description: "Master artisan adjusting the roller clearance wheel by hand for uniform silver tensile strength."
-  },
+ 
   {
     id: "workshop-shelves-moulds",
     title: "Tools of the Trade",
@@ -454,14 +466,6 @@ export const MANUFACTURING_GALLERY: ManufacturingImage[] = [
     category: "machinery",
     image: "/images/manufacturing/hydraulic-press-machine.jpeg",
     description: "Forming and stamping bay used for high-relief temple kavasams and Amman ornaments."
-  },
-  {
-    id: "mfg-08",
-    title: "Finishing Details",
-    caption: "Finishing Details",
-    category: "tools",
-    image: "/images/manufacturing/mfg-08.jpeg",
-    description: "Tooling mandrels and dies used for turning concentric silver lids and rims."
   },
   {
     id: "mfg-12",

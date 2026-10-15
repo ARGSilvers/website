@@ -151,31 +151,29 @@ export default function HomePage() {
           </div>
 
           {/* Authentic Portrait-Led Family Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {FAMILY_MEMBERS.map((member, idx) => (
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-center justify-items-center">
+              {FAMILY_MEMBERS.map((member, idx) => (
               <div
                 key={idx}
-                className="bg-[#101A2B] rounded-xs border border-white/10 overflow-hidden shadow-lg hover:border-[#C49A43]/40 transition-all duration-300 flex flex-col group"
+                className="bg-[#101A2B] w-[90%] h-[90%] rounded-xs border border-white/10 overflow-hidden shadow-lg hover:border-[#C49A43]/40 transition-all duration-300 flex flex-col group"
               >
                 {/* Authentic Portrait */}
-                <div className="relative aspect-[4/5] w-full bg-[#0a121e] overflow-hidden p-3 flex items-center justify-center">
+                <div className="relative aspect-square w-full  bg-[#0a121e] overflow-hidden p-3 flex items-center justify-center">
                   <Image
                     src={member.image}
                     alt={member.name}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className=" p-2 group-hover:scale-105 transition-transform duration-500"
+                    className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
                 </div>
 
                 {/* Details */}
-                <div className="p-5 flex-1 flex flex-col justify-between bg-[#101A2B] border-t border-white/10 space-y-2">
-                  <div>
-                    <h3 className="font-serif-heading text-xl font-normal text-[#F5EADF] group-hover:text-[#C49A43] transition-colors">
-                      {member.name}
-                    </h3>
-                  </div>
+                <div className="p-4 bg-[#101A2B] border-t border-white/10 text-center">
+                  <h3 className="font-serif-heading text-lg sm:text-xl font-normal text-[#F5EADF] group-hover:text-[#C49A43] transition-colors">
+                    {member.name}
+                  </h3>
                 </div>
               </div>
             ))}
@@ -323,18 +321,33 @@ export default function HomePage() {
           </div>
 
           {/* Esteemed Client Businesses Restrained Text Block */}
-          <div className="max-w-3xl mx-auto bg-white/80 p-6 sm:p-8 rounded-xs border border-[#E9D8BE] text-center space-y-4">
+          <div className="max-w-4xl mx-auto bg-white/90 p-6 sm:p-8 rounded-xs border border-[#E9D8BE] text-center space-y-6">
             <p className="text-xs uppercase tracking-[0.2em] text-[#C49A43] font-semibold">
               Supplying Prominent Jewellery Houses &amp; Dealers
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-[#292824]/90 font-medium">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 items-stretch">
               {COMPANY_INFO.esteemedClients.map((client) => (
                 <div
-                  key={client}
-                  className="p-3 bg-[#F5EADF]/60 rounded-xs border border-[#E9D8BE] flex items-center justify-center gap-2"
+                  key={client.name}
+                  className="p-4 sm:p-5 hover:bg-white rounded-xs border border-[#E9D8BE] hover:border-[#C49A43]/50 transition-all duration-300 flex flex-col items-center justify-between text-center group shadow-xs hover:shadow-md"
                 >
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#C49A43] shrink-0" />
-                  <span>{client}</span>
+                  <div className="h-16 w-full flex items-center justify-center relative mb-2">
+                    <Image
+                      src={client.logo}
+                      alt={client.alt}
+                      width={160}
+                      height={60}
+                      className="max-h-22 w-auto max-w-[120px] sm:max-w-[140px] object-contain filter group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  {/* <div className="mt-auto pt-2 border-t border-[#E9D8BE]/50 w-full">
+                    <span className="font-serif-heading text-xs sm:text-sm font-medium text-[#17243B] block leading-tight">
+                      {client.name}
+                    </span>
+                    <span className="text-[10px] text-[#292824]/60 tracking-wider uppercase block mt-0.5">
+                      {client.location}
+                    </span>
+                  </div> */}
                 </div>
               ))}
             </div>

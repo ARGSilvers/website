@@ -78,11 +78,6 @@ export default function Timeline() {
                         loading="lazy"
                       />
                     </div>
-                    {item.caption && (
-                      <p className="mt-3 text-xs text-[#292824]/70 italic text-center font-serif-heading">
-                        {item.caption}
-                      </p>
-                    )}
                   </div>
                 )}
               </div>

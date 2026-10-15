@@ -18,26 +18,32 @@ export default function Hero() {
       {/* Background Ambience: Velvet Blue texture and subtle radial glow */}
       <div className="absolute inset-0 bg-velvet-texture pointer-events-none" />
 
-      {/* Cinematic Silver Feature Imagery: Layered backdrop with silver lamp & amman silhouette */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-25 mix-blend-luminosity">
-        <div className="absolute -left-16 top-1/4 w-80 h-96 lg:w-[480px] lg:h-[600px]">
-          <Image
-            src="/images/products/silver-kuthuvilaku.png"
-            alt="Handcrafted Silver Kuthu Villakku"
-            fill
-            sizes="480px"
-            className="object-contain filter drop-shadow-2xl"
-          />
-        </div>
-        <div className="absolute -right-16 top-1/4 w-80 h-96 lg:w-[480px] lg:h-[600px]">
-          <Image
-            src="/images/products/amman-mugam-silver.png"
-            alt="Varalakshmi Amman Silver Face"
-            fill
-            sizes="480px"
-            className="object-contain filter drop-shadow-2xl"
-          />
-        </div>
+      {/* Desktop Background: Custom ARG Silvers Wide Velvet Showcase */}
+      <div className="hidden md:block absolute inset-0 pointer-events-none overflow-hidden">
+        <Image
+          src="/images/hero-banner.jpg"
+          alt="ARG Silvers Handcrafted Temple & Heritage Silverware"
+          fill
+          priority
+          sizes="100vw"
+          className="object-contain object-center"
+        />
+        {/* Subtle gradient vignette to blend edges and maintain central text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#101A2B]/60 via-[#101A2B]/30 to-[#101A2B]/70" />
+      </div>
+
+      {/* Mobile Background: Handcrafted Silver Kuthu Vilakku seamlessly covering the vertical screen */}
+      <div className="md:hidden absolute inset-0 pointer-events-none overflow-hidden">
+        <Image
+          src="/images/products/silver-kuthuvilaku.png"
+          alt="Handcrafted Silver Kuthu Vilakku"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        {/* Deep blue velvet tint overlay for crystal-clear text readability on mobile */}
+        <div className="absolute inset-0 bg-[#101A2B]/65 bg-gradient-to-b from-[#101A2B]/80 via-[#101A2B]/50 to-[#101A2B]/85" />
       </div>
 
       {/* Central Hero Composition */}

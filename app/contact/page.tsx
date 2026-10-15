@@ -49,7 +49,7 @@ export default function ContactPage() {
                     {COMPANY_INFO.tagline} · Since {COMPANY_INFO.since}
                   </p>
                 </div>
-                <div className="relative w-12 h-12 shrink-0">
+                <div className="relative w-32 h-12 shrink-0">
                   <Image
                     src="/images/logo/arg-logo-white.png"
                     alt="A.R.G SILVERS"

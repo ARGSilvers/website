@@ -13,15 +13,53 @@ export default function ContactForm() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage(null);
 
-    setTimeout(() => {
+    try {
+      const response = await fetch(
+        `https://formsubmit.co/ajax/${COMPANY_INFO.email.label}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            Name: formData.name,
+            "Contact Info (Phone/Email)": formData.contactInfo,
+            Subject: formData.subject || "Website Requirement Enquiry",
+            Message: formData.message,
+            _subject: `[ARG Silvers Enquiry] ${formData.subject || "New Customer Requirement"}`,
+            _template: "table",
+            _captcha: "false",
+          }),
+        }
+      );
+
+      const result = await response.json();
+      if (response.ok && (result.success === "true" || result.success === true)) {
+        setSubmitted(true);
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
+    } catch (err) {
+      console.error("FormSubmit error:", err);
+      // Fallback: If AJAX is blocked or fails, submit via traditional POST
+      if (e.currentTarget) {
+        e.currentTarget.submit();
+        return;
+      }
+      setErrorMessage(
+        "Could not send your message right now. Please call or email us directly using the numbers above."
+      );
+    } finally {
       setIsSubmitting(false);
-      setSubmitted(true);
-    }, 500);
+    }
   };
 
   if (submitted) {
@@ -34,7 +72,7 @@ export default function ContactForm() {
           Thank You, {formData.name}
         </h3>
         <p className="text-sm text-[#292824]/85 leading-relaxed font-light max-w-md mx-auto">
-          We have recorded your details regarding <strong className="text-[#17243B]">{formData.subject || "your requirement"}</strong>. For immediate assistance, our family is directly available via phone and email:
+          We have received your enquiry regarding <strong className="text-[#17243B]">{formData.subject || "your requirement"}</strong>. Our family will get in touch with you shortly.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
@@ -69,9 +107,24 @@ export default function ContactForm() {
 
   return (
     <form
+      action={`https://formsubmit.co/${COMPANY_INFO.email.label}`}
+      method="POST"
       onSubmit={handleSubmit}
       className="bg-white p-6 sm:p-8 rounded-xs border border-[#E9D8BE] shadow-xs space-y-4"
     >
+      {/* FormSubmit Configuration Fields */}
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input
+        type="hidden"
+        name="_subject"
+        value={
+          formData.subject
+            ? `[ARG Silvers Enquiry] ${formData.subject}`
+            : "[ARG Silvers Enquiry] New Customer Requirement"
+        }
+      />
+
       <div className="space-y-1">
         <h3 className="font-serif-heading text-2xl font-normal text-[#17243B]">
           Send a Message
@@ -89,6 +142,12 @@ export default function ContactForm() {
         </a>.
       </div>
 
+      {errorMessage && (
+        <div className="p-3 bg-red-50 border border-red-200 text-xs text-red-700 rounded-xs">
+          {errorMessage}
+        </div>
+      )}
+
       <div>
         <label
           htmlFor="name"
@@ -98,6 +157,7 @@ export default function ContactForm() {
         </label>
         <input
           id="name"
+          name="name"
           type="text"
           required
           value={formData.name}
@@ -116,6 +176,7 @@ export default function ContactForm() {
         </label>
         <input
           id="contactInfo"
+          name="contactInfo"
           type="text"
           required
           value={formData.contactInfo}
@@ -136,6 +197,7 @@ export default function ContactForm() {
         </label>
         <input
           id="subject"
+          name="subject"
           type="text"
           value={formData.subject}
           onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
@@ -153,6 +215,7 @@ export default function ContactForm() {
         </label>
         <textarea
           id="message"
+          name="message"
           rows={4}
           required
           value={formData.message}

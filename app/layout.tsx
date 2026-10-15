@@ -21,7 +21,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://argsilvers.com"),
   title: {
-    default: "A.R.G SILVERS | Traditional Silver Craftsmanship Since 1925 | Kumbakonam",
+    default:
+      "A.R.G SILVERS | Traditional Silver Craftsmanship Since 1925 | Kumbakonam",
     template: "%s | A.R.G SILVERS Kumbakonam",
   },
   description:
@@ -46,20 +47,16 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: [
-      { url: "/icon.png", type: "image/png" },
-      { url: "/favicon.ico" },
-    ],
-    apple: [
-      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
-    ],
+    icon: [{ url: "/icon.png", type: "image/png" }, { url: "/favicon.ico" }],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
   },
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: "https://argsilvers.com",
     siteName: "A.R.G SILVERS Kumbakonam",
-    title: "A.R.G SILVERS | Traditional Silver Craftsmanship Since 1925 | Kumbakonam",
+    title:
+      "A.R.G SILVERS | Traditional Silver Craftsmanship Since 1925 | Kumbakonam",
     description:
       "Family-run traditional silver manufacturing business from Kumbakonam, Tamil Nadu. Handcrafting temple articles, Varalakshmi Amman, and traditional silver articles across three generations.",
     images: [
@@ -105,7 +102,7 @@ export default function RootLayout({
       addressCountry: "IN",
     },
     telephone: ["+91 9952843287", "+91 9944654778", "+91 9087603033"],
-    email: "gajendrangnanasekaran@gmail.com",
+    email: "argsilvers@gmail.com",
     areaServed: ["Tamil Nadu", "Karnataka", "Andhra Pradesh", "Kerala"],
   };
 
