@@ -111,13 +111,31 @@ export default function Footer() {
                   {COMPANY_INFO.email.label}
                 </a>
               </div>
+
+              <div className="flex items-center gap-2 text-xs text-[#C5C8CC] pt-1">
+                <span className="text-[#C49A43] font-semibold text-[10px] tracking-wider uppercase border border-[#C49A43]/40 px-1.5 py-0.5 rounded-xs">
+                  GST
+                </span>
+                <span className="font-mono text-[#F5EADF] tracking-wider">
+                  {COMPANY_INFO.gst}
+                </span>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Thin Divider & Bottom Bar */}
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#C5C8CC]/60 font-light">
-          <p>© 1925 – 2026 A.R.G SILVERS. All rights reserved.</p>
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#C5C8CC]/70 font-light">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-3">
+            <p>© 1925 – 2026 A.R.G SILVERS. All rights reserved.</p>
+            <span className="text-[#C49A43]/40 hidden sm:inline">|</span>
+            <p>
+              GST:{" "}
+              <span className="font-mono text-[#F5EADF] font-medium tracking-wider">
+                {COMPANY_INFO.gst}
+              </span>
+            </p>
+          </div>
           <p>Traditional Silver Handicrafts · Kumbakonam, Tamil Nadu</p>
         </div>
       </div>

@@ -40,6 +40,7 @@ export const COMPANY_INFO = {
   since: "1925",
   location: "Kumbakonam, Tamil Nadu, India",
   founder: "Rajamanikam",
+  gst: "33AMLPR4706M1ZN",
   stats: "100+ Years of Craftsmanship  |  Three Generations  |  Kumbakonam, Tamil Nadu",
   phones: [
     { label: "+91 9952843287", href: "tel:+919952843287" },
