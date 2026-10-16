@@ -6,14 +6,67 @@ import ContactForm from "@/components/ContactForm";
 import { COMPANY_INFO } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Contact A.R.G SILVERS | Kumbakonam Workshops",
+  title: "Contact A.R.G SILVERS | Kumbakonam Workshops & Orders",
   description:
-    "Get in touch with A.R.G Silvers directly for enquiries about traditional silver products, temple requirements, silver coins and dollars, jewellery business requirements or custom silver work.",
+    "Get in touch directly with A.R.G Silvers in Kumbakonam for temple silver kavasam commissions, Varalakshmi Amman requirements, silver lamps, wholesale dealer orders, or custom silver work.",
+  alternates: {
+    canonical: "https://argsilvers.com/contact",
+  },
+  keywords: [
+    "contact ARG Silvers",
+    "ARG Silvers phone number",
+    "Kumbakonam silver workshop address",
+    "Mukkannar street silver manufacturer",
+    "custom silver article order Kumbakonam",
+    "temple silver kavasam quotation",
+    "Varalakshmi Amman silver order",
+    "wholesale silverware order Tamil Nadu",
+  ],
+  openGraph: {
+    title: "Contact A.R.G SILVERS | Kumbakonam Workshops",
+    description:
+      "Direct enquiries for traditional silver articles, temple orders, and custom handcrafted silver commissions.",
+    url: "https://argsilvers.com/contact",
+    images: [
+      {
+        url: "/images/hero-banner.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Contact A.R.G SILVERS Kumbakonam",
+      },
+    ],
+  },
 };
 
 export default function ContactPage() {
+  const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact A.R.G SILVERS",
+    description: "Contact information for A.R.G Silvers workshops in Kumbakonam, Tamil Nadu.",
+    url: "https://argsilvers.com/contact",
+    mainEntity: {
+      "@type": "LocalBusiness",
+      name: "A.R.G SILVERS",
+      telephone: ["+919952843287", "+919944654778", "+919087603033"],
+      email: "argsilvers@gmail.com",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "37/73 Mukkannar Street",
+        addressLocality: "Kumbakonam",
+        addressRegion: "Tamil Nadu",
+        postalCode: "612001",
+        addressCountry: "IN",
+      },
+    },
+  };
+
   return (
     <div className="bg-[#F5EADF] min-h-screen py-14 lg:py-22">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* HERO */}
         <div className="max-w-3xl mb-14 lg:mb-18 m-auto text-center">

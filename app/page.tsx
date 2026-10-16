@@ -15,6 +15,19 @@ export const metadata: Metadata = {
     "A.R.G SILVERS | Traditional Silver Craftsmanship Since 1925 | Kumbakonam",
   description:
     "A family-run traditional silver manufacturing business in Kumbakonam, Tamil Nadu. Handcrafting sacred temple articles, Varalakshmi Amman, traditional lamps, and custom silver articles across three generations.",
+  alternates: {
+    canonical: "https://argsilvers.com",
+  },
+  keywords: [
+    "A.R.G Silvers Kumbakonam",
+    "silver manufacturers Kumbakonam",
+    "traditional silver handicrafts Kumbakonam",
+    "temple silver kavasam Tamil Nadu",
+    "Varalakshmi Amman silver face manufacturers",
+    "handcrafted silver kuthuvillakku lamps",
+    "silver jewellery manufacturers South India",
+    "Kumbakonam silver artisans since 1925",
+  ],
 };
 
 export default function HomePage() {

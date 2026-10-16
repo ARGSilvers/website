@@ -6,14 +6,71 @@ import ContactStrip from "@/components/ContactStrip";
 import { PRODUCTS_LIST } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Our Products | A.R.G SILVERS Kumbakonam",
+  title: "Traditional Silver Articles & Temple Work Catalogue",
   description:
-    "A visual catalogue of traditional silver articles crafted by A.R.G Silvers across three generations in Kumbakonam, Tamil Nadu. Temple kavasams, Varalakshmi Amman, traditional lamps, and ceremonial articles.",
+    "Explore traditional silver articles crafted by A.R.G Silvers across three generations in Kumbakonam, Tamil Nadu. Temple kavasams, Varalakshmi Amman faces, traditional silver kuthuvillakku lamps, ceremonial vessels, and custom silver articles.",
+  alternates: {
+    canonical: "https://argsilvers.com/products",
+  },
+  keywords: [
+    "silver temple articles Kumbakonam",
+    "temple kavasam silver",
+    "Varalakshmi Amman silver face",
+    "Varalakshmi Amman mugam silver",
+    "silver kuthuvilaku price",
+    "traditional silver lamps Kumbakonam",
+    "silver pooja items wholesale Tamil Nadu",
+    "silver sombhu",
+    "silver plate Kumbakonam",
+    "silver panjapathiram uthirani",
+    "custom silver temple crown",
+    "silver aruval temple donation",
+  ],
+  openGraph: {
+    title: "Traditional Silver Articles Catalogue | A.R.G SILVERS Kumbakonam",
+    description:
+      "Explore handcrafted traditional silver articles, temple kavasams, Varalakshmi Amman faces, and ceremonial lamps made in Kumbakonam since 1925.",
+    url: "https://argsilvers.com/products",
+    images: [
+      {
+        url: "/images/products/amman-gridam-customizable-silver.png",
+        width: 1200,
+        height: 630,
+        alt: "A.R.G SILVERS Traditional Silver Products Catalogue",
+      },
+    ],
+  },
 };
 
 export default function ProductsPage() {
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "A.R.G SILVERS Traditional Silver Catalogue",
+    description:
+      "Handcrafted traditional silver articles and temple requirements manufactured in Kumbakonam, Tamil Nadu.",
+    itemListElement: PRODUCTS_LIST.slice(0, 15).map((product, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Product",
+        name: product.name,
+        description: product.description,
+        image: `https://argsilvers.com${product.image}`,
+        category: product.categoryLabel,
+        brand: {
+          "@type": "Brand",
+          name: "A.R.G SILVERS",
+        },
+      },
+    })),
+  };
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
       {/* PRODUCT PAGE HERO */} 
       <section className="bg-velvet-texture text-[#F5EADF] py-12 border-b border-[#101A2B] relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

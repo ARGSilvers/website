@@ -26,25 +26,50 @@ export const metadata: Metadata = {
     template: "%s | A.R.G SILVERS Kumbakonam",
   },
   description:
-    "A.R.G Silvers is a family-run traditional silver manufacturing business in Kumbakonam, Tamil Nadu, with craftsmanship dating back to 1925. Three generations making sacred temple articles, Varalakshmi Amman, traditional lamps, and custom silver articles.",
+    "A.R.G Silvers is a family-run traditional silver manufacturing business in Kumbakonam, Tamil Nadu, with heritage craftsmanship dating back to 1925. Three generations making sacred temple articles, Varalakshmi Amman faces, traditional silver kuthuvillakku lamps, kavasam, and custom silver articles.",
   keywords: [
     "A.R.G Silvers",
+    "ARG Silvers Kumbakonam",
     "silver manufacturers Kumbakonam",
     "traditional silver products Kumbakonam",
     "silver handicrafts Kumbakonam",
     "traditional silver manufacturers Tamil Nadu",
-    "silver temple articles",
-    "Varalakshmi Amman silver",
+    "silver temple articles manufacturers",
+    "temple kavasam silver Kumbakonam",
+    "Varalakshmi Amman silver face",
+    "Varalakshmi Amman mugam silver",
+    "silver kuthuvilaku manufacturers",
     "Kuthu Villakku silver",
-    "silver kavasam",
-    "Kumbakonam silver craft",
+    "handcrafted silver pooja items wholesale",
+    "wholesale silver manufacturers Tamil Nadu",
+    "silver idol kavasam artisans",
+    "Kumbakonam silver craft heritage",
+    "Mukkannar street silver workshops",
+    "Thanjavur silver craft",
+    "South Indian traditional silver articles",
+    "temple silver donations Kumbakonam",
   ],
-  authors: [{ name: "A.R.G Silvers Family" }],
+  authors: [{ name: "A.R.G Silvers Family", url: "https://argsilvers.com" }],
   creator: "A.R.G Silvers",
   publisher: "A.R.G Silvers",
+  formatDetection: {
+    telephone: true,
+    address: true,
+    email: true,
+  },
+  alternates: {
+    canonical: "https://argsilvers.com",
+  },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   icons: {
     icon: [{ url: "/icon.png", type: "image/png" }, { url: "/favicon.ico" }],
@@ -58,13 +83,13 @@ export const metadata: Metadata = {
     title:
       "A.R.G SILVERS | Traditional Silver Craftsmanship Since 1925 | Kumbakonam",
     description:
-      "Family-run traditional silver manufacturing business from Kumbakonam, Tamil Nadu. Handcrafting temple articles, Varalakshmi Amman, and traditional silver articles across three generations.",
+      "Family-run traditional silver manufacturing business in Kumbakonam, Tamil Nadu. Handcrafting sacred temple articles, Varalakshmi Amman, and traditional silver articles across three generations.",
     images: [
       {
-        url: "/images/products/amman-mugam-silver.png",
+        url: "/images/hero-banner.jpg",
         width: 1200,
         height: 630,
-        alt: "A.R.G SILVERS - Traditional Silver Craftsmanship Since 1925",
+        alt: "A.R.G SILVERS - Traditional Silver Craftsmanship Since 1925 Kumbakonam",
       },
     ],
   },
@@ -73,7 +98,13 @@ export const metadata: Metadata = {
     title: "A.R.G SILVERS | Traditional Silver Craftsmanship Since 1925",
     description:
       "Handcrafted silver traditions from Kumbakonam, Tamil Nadu. 100+ years and three generations of craftsmanship.",
-    images: ["/images/products/amman-mugam-silver.png"],
+    images: ["/images/hero-banner.jpg"],
+  },
+  other: {
+    "geo.region": "IN-TN",
+    "geo.placename": "Kumbakonam",
+    "geo.position": "10.9602;79.3845",
+    "ICBM": "10.9602, 79.3845",
   },
 };
 
@@ -84,14 +115,20 @@ export default function RootLayout({
 }) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": ["LocalBusiness", "Manufacturer"],
+    "@id": "https://argsilvers.com/#organization",
     name: "A.R.G SILVERS",
+    alternateName: ["ARG Silvers", "A.R.G. Silvers Kumbakonam"],
+    url: "https://argsilvers.com",
+    logo: "https://argsilvers.com/images/logo/arg-logo-white.png",
+    image: "https://argsilvers.com/images/hero-banner.jpg",
     description:
-      "Traditional silver manufacturing business from Kumbakonam, Tamil Nadu with family craftsmanship dating back to 1925.",
+      "Family-run traditional silver manufacturing business in Kumbakonam, Tamil Nadu with family craftsmanship dating back to 1925. Specialising in temple kavasam, Varalakshmi Amman faces, traditional lamps, and custom silver articles.",
     foundingDate: "1925",
+    taxID: "33AMLPR4706M1ZN",
     founder: {
       "@type": "Person",
-      name: "Rajamanikam",
+      name: "Late A. Rajamanikam",
     },
     address: {
       "@type": "PostalAddress",
@@ -101,9 +138,43 @@ export default function RootLayout({
       postalCode: "612001",
       addressCountry: "IN",
     },
-    telephone: ["+91 9952843287", "+91 9944654778", "+91 9087603033"],
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "10.9602",
+      longitude: "79.3845",
+    },
+    telephone: ["+919952843287", "+919944654778", "+919087603033"],
     email: "argsilvers@gmail.com",
-    areaServed: ["Tamil Nadu", "Karnataka", "Andhra Pradesh", "Kerala"],
+    areaServed: [
+      { "@type": "AdministrativeArea", name: "Tamil Nadu" },
+      { "@type": "AdministrativeArea", name: "Karnataka" },
+      { "@type": "AdministrativeArea", name: "Andhra Pradesh" },
+      { "@type": "AdministrativeArea", name: "Kerala" },
+    ],
+    priceRange: "₹₹₹",
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ],
+        opens: "09:00",
+        closes: "20:00",
+      },
+    ],
+    knowsAbout: [
+      "Traditional Silver Craftsmanship",
+      "Temple Silver Kavasam",
+      "Varalakshmi Amman Silver Face",
+      "Silver Kuthu Villakku Lamps",
+      "Handcrafted Silverware",
+      "South Indian Temple Articles",
+    ],
   };
 
   return (

@@ -125,8 +125,8 @@ export default function Footer() {
         </div>
 
         {/* Thin Divider & Bottom Bar */}
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#C5C8CC]/70 font-light">
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-3">
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[#C5C8CC]/70 font-light text-center md:text-left">
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 sm:gap-3">
             <p>© 1925 – 2026 A.R.G SILVERS. All rights reserved.</p>
             <span className="text-[#C49A43]/40 hidden sm:inline">|</span>
             <p>
@@ -136,7 +136,21 @@ export default function Footer() {
               </span>
             </p>
           </div>
-          <p>Traditional Silver Handicrafts · Kumbakonam, Tamil Nadu</p>
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-2 sm:gap-3">
+            <p>Traditional Silver Handicrafts · Kumbakonam, Tamil Nadu</p>
+            <span className="text-[#C49A43]/40 hidden sm:inline">|</span>
+            <p>
+              Design and developed by{" "}
+              <a
+                href="https://three-dots.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#C49A43] hover:text-[#d4a84e] transition-colors underline-offset-2 hover:underline font-normal"
+              >
+                Three Dots
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>

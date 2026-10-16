@@ -7,14 +7,66 @@ import ContactStrip from "@/components/ContactStrip";
 import { MANUFACTURING_GALLERY, COMPANY_INFO } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Our Manufacturing Unit | A.R.G SILVERS Kumbakonam",
+  title: "Manufacturing Units & Workshops in Kumbakonam",
   description:
-    "A photography-led look inside A.R.G Silvers two manufacturing units on Mukkannar Street in Kumbakonam, Tamil Nadu. Handcrafting traditional silver products across three generations.",
+    "A look inside A.R.G Silvers two operational silver manufacturing units on Mukkannar Street in Kumbakonam, Tamil Nadu. Traditional techniques, sheet rolling machinery, spinning lathes, hydraulic dies, and family handcraftsmanship since 1925.",
+  alternates: {
+    canonical: "https://argsilvers.com/manufacturing-unit",
+  },
+  keywords: [
+    "silver manufacturing unit Kumbakonam",
+    "Mukkannar street silver workshops",
+    "traditional silver making machinery",
+    "silver sheet rolling Kumbakonam",
+    "hydraulic press silver stamping",
+    "temple silver die moulds",
+    "handcrafted silverware production",
+    "silver artisans Kumbakonam",
+    "wholesale silverware manufacturer Tamil Nadu",
+  ],
+  openGraph: {
+    title: "Our Manufacturing Units | A.R.G SILVERS Kumbakonam",
+    description:
+      "Inside A.R.G Silvers two operational workshops in Kumbakonam. Combining generational handcraftsmanship with hydraulic pressing and sheet rolling machinery.",
+    url: "https://argsilvers.com/manufacturing-unit",
+    images: [
+      {
+        url: "/images/manufacturing/workshop-overview.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "A.R.G SILVERS Manufacturing Workshop Kumbakonam",
+      },
+    ],
+  },
 };
 
 export default function ManufacturingUnitPage() {
+  const workshopSchema = {
+    "@context": "https://schema.org",
+    "@type": "Place",
+    name: "A.R.G SILVERS Manufacturing Units",
+    description: "Two dedicated silver manufacturing workshops in Kumbakonam, Tamil Nadu.",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "37/73 and 104/65 Mukkannar Street",
+      addressLocality: "Kumbakonam",
+      addressRegion: "Tamil Nadu",
+      postalCode: "612001",
+      addressCountry: "IN",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "10.9602",
+      longitude: "79.3845",
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(workshopSchema) }}
+      />
       {/* 1. HERO SECTION */}
       <section className="bg-velvet-texture text-[#F5EADF] pt-16 pb-20 lg:pt-24 lg:pb-28 border-b border-[#101A2B] relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
