@@ -79,7 +79,7 @@ export default function ContactPage() {
           <h1 className="font-serif-heading text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-[#17243B] leading-[1.1]">
             Contact A.R.G Silvers
           </h1>
-          <div className="w-16 h-[1.5px] bg-[#C49A43] my-4" />
+          <div className="w-16 h-[1.5px] m-auto bg-[#C49A43] my-4" />
           <p className="text-base sm:text-lg text-[#292824]/85 leading-relaxed font-light">
             For enquiries about traditional silver products, temple requirements, silver coins and dollars, jewellery business requirements or custom silver work, please get in touch with us.
           </p>
@@ -94,15 +94,11 @@ export default function ContactPage() {
 
               {/* Brand Header */}
               <div className="relative z-10 flex items-center justify-between pb-6 border-b border-white/10">
-                <div className="space-y-1">
-                  <p className="font-serif-heading text-3xl font-normal tracking-wide text-[#F5EADF]">
+                <div className="space-y-1 w-full flex flex-col items-center">
+                  {/* <p className="font-serif-heading text-3xl font-normal tracking-wide text-[#F5EADF]">
                     {COMPANY_INFO.name}
-                  </p>
-                  <p className="text-xs tracking-[0.2em] uppercase text-[#C49A43] font-medium">
-                    {COMPANY_INFO.tagline} · Since {COMPANY_INFO.since}
-                  </p>
-                </div>
-                <div className="relative w-32 h-12 shrink-0">
+                  </p> */}
+                     <div className="relative w-32 h-12 shrink-0">
                   <Image
                     src="/images/logo/arg-logo-white.png"
                     alt="A.R.G SILVERS"
@@ -110,6 +106,11 @@ export default function ContactPage() {
                     className="object-contain"
                   />
                 </div>
+                  <p className="text-xs tracking-[0.2em] uppercase text-[#C49A43] font-medium">
+                    {COMPANY_INFO.tagline} · Since {COMPANY_INFO.since}
+                  </p>
+                </div>
+             
               </div>
 
               {/* Manufacturing Units */}

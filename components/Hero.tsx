@@ -35,12 +35,12 @@ export default function Hero() {
       {/* Mobile Background: Handcrafted Silver Kuthu Vilakku seamlessly covering the vertical screen */}
       <div className="md:hidden absolute inset-0 pointer-events-none overflow-hidden">
         <Image
-          src="/images/products/silver-kuthuvilaku.png"
+          src="/images/products/thirukaveri-silver.png"
           alt="Handcrafted Silver Kuthu Vilakku"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-contain object-bottom"
         />
         {/* Deep blue velvet tint overlay for crystal-clear text readability on mobile */}
         <div className="absolute inset-0 bg-[#101A2B]/65 bg-gradient-to-b from-[#101A2B]/80 via-[#101A2B]/50 to-[#101A2B]/85" />
