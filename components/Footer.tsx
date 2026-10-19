@@ -50,6 +50,7 @@ export default function Footer() {
 
           {/* Navigation */}
           <div className="lg:col-span-3 space-y-4">
+            
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#C49A43] pb-2 border-b border-white/10">
               Navigation
             </p>
