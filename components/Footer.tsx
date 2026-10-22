@@ -29,9 +29,9 @@ export default function Footer() {
                 />
               </Link>
               <div>
-                <p className="font-serif-heading text-2xl font-normal tracking-wide text-[#F5EADF]">
+                {/* <p className="font-serif-heading text-2xl font-normal tracking-wide text-[#F5EADF]">
                   A.R.G SILVERS
-                </p>
+                </p> */}
                 <p className="text-xs tracking-[0.18em] uppercase text-[#C49A43] font-medium mt-0.5">
                   Traditional Silver Handicrafts · Since 1925
                 </p>
@@ -66,6 +66,25 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+            <div className="pt-2 space-y-3">
+              <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#C49A43] pb-2 border-b border-white/10">
+                A.R.G. SILVERS Advantages
+              </p>
+              <ul className="space-y-2.5">
+                <li className="flex items-center gap-3 text-sm text-[#F5EADF]/80">
+                  <div className="w-8 h-8 rounded-sm bg-white p-0.5 shrink-0 flex items-center justify-center shadow-xs">
+                    <Image
+                      src="/images/bis-hallmark.png"
+                      alt="BIS Hallmark Jewellery"
+                      width={32}
+                      height={32}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <span>BIS Hallmark Jewellery</span>
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* Contact Details & Workshops */}

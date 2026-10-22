@@ -89,11 +89,7 @@ export default function MobileMenu({
                   }`}
                 >
                   <span className="tracking-wide">{link.name}</span>
-                  <ArrowRight
-                    className={`w-4 h-4 transition-transform ${
-                      isActive ? "text-[#C49A43] translate-x-1" : "text-[#C5C8CC]/60"
-                    }`}
-                  />
+                 
                 </Link>
               );
             })}
