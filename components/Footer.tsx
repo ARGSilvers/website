@@ -82,7 +82,7 @@ export default function Footer() {
                       className="w-full h-full object-contain"
                     />
                   </div>
-                  <span>BIS Hallmark Jewellery</span>
+                  <span>BIS Hallmark Registered</span>
                 </li>
               </ul>
             </div>
